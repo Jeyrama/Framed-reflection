@@ -43,3 +43,22 @@ function mirror(text) {
   return inverted.join('\n');
 }
 
+// or
+
+function mirror(text){
+
+  let words = text.split(/\s+/)
+  ,  maxlen = Math.max(...words.map(w => w.length))
+  , padding = ' '.repeat(maxlen)
+  ,  endcap = '*'.repeat(maxlen + 4)
+  
+  , reverse = word => word.split('').reverse().join('')
+  ,     pad = word => (word + padding).slice(0, maxlen);
+  
+  
+  words = words.map(word => '* ' + pad(reverse(word)) + ' *');
+  words.unshift(endcap);
+  words.push(endcap);
+  
+  return words.join("\n");
+}
