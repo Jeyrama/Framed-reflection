@@ -23,3 +23,23 @@ function mirror(text) {
   const revs = words.map(w => `* ${Array.from(w).reverse().join('')}${' '.repeat(width - w.length)} *`).join('\n');
   return `${tb}\n${revs}\n${tb}`;
 }
+
+// or
+
+function mirror(text) {
+  const words = text.split(' ');
+  const max = Math.max(...(words.map(w => w.length)));
+  const lines = q => '*'.repeat(q);
+  const revert = str => [...str].reverse().join('');
+  const trailing = str => `${' '.repeat(max - str.length)}*`;
+  const decorate = str => `* ${revert(str)} ${trailing(str)}`;
+
+  let inverted = words.map(w => decorate(w));
+  let separator = lines(max + 4);
+
+  inverted.unshift(separator);
+  inverted.push(separator);
+
+  return inverted.join('\n');
+}
+
